@@ -22,6 +22,18 @@ Error generating stack: `+e.message+`
         .sb-reveal, .sb-root { opacity: 1; transform: none; transition: none; animation: none; }
         html { scroll-behavior: auto; }
       }
+
+      @media print {
+        .sb-nav, .sb-cta, details summary span:last-child { display: none !important; }
+        details[open] > div, details > div { display: block !important; }
+        details { border: 1px solid #ccc; padding: 12px; margin-bottom: 12px; }
+        .sb-reveal { opacity: 1 !important; transform: none !important; }
+        body { background: white !important; }
+        a { text-decoration: underline; color: #000 !important; }
+        section { page-break-inside: avoid; padding: 24px !important; }
+        h1, h2, h3 { page-break-after: avoid; }
+        .sb-card, figure { page-break-inside: avoid; }
+      }
       .sb-link { transition: color .2s ease, border-color .2s ease; position: relative; }
       .sb-link::after {
         content: ''; position: absolute; left: 0; right: 0; bottom: -6px;

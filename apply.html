@@ -1,0 +1,345 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/png" href="./sprout.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="noindex" />
+    <meta name="description" content="Mission trip application — Sembradores de Semillas Mission Trips." />
+    <meta name="theme-color" content="#15273A" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <title>Apply — Sembradores de Semillas Mission Trips</title>
+    <style>
+      :root {
+        --sky:#6FB7E9; --skySoft:#D9ECF7; --yellow:#F5C13D; --yellowSoft:#FBE9B0;
+        --red:#D94B3D; --redDeep:#A8362B; --ink:#15273A; --cream:#FAF6EE;
+        --paper:#FFFFFF; --muted:#6B7A8A;
+        --serif:"Cormorant Garamond","Playfair Display",Georgia,serif;
+        --sans:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+      }
+      * { box-sizing: border-box; }
+      body { margin:0; background:var(--cream); color:var(--ink); font-family:var(--sans); line-height:1.55; -webkit-font-smoothing:antialiased; }
+      a { color:var(--red); }
+      .topbar { background:var(--ink); color:var(--cream); font-size:13px; padding:10px 24px; display:flex; justify-content:center; gap:12px; align-items:center; flex-wrap:wrap; }
+      .topbar .badge { background:var(--yellow); color:var(--ink); padding:3px 10px; font-weight:700; letter-spacing:1.5px; font-size:11px; border-radius:3px; }
+      .wrap { max-width:860px; margin:0 auto; padding:32px 20px 80px; }
+      .back { display:inline-block; margin:8px 0 24px; color:var(--ink); text-decoration:none; font-weight:600; font-size:14px; }
+      .back:hover { color:var(--red); }
+      h1 { font-family:var(--serif); font-weight:500; font-size:clamp(34px,6vw,52px); letter-spacing:-1px; line-height:1.05; margin:8px 0 8px; }
+      .sub { color:var(--muted); font-size:17px; max-width:620px; margin:0 0 8px; }
+      .eyebrow { font-size:12px; letter-spacing:2px; text-transform:uppercase; color:var(--muted); font-weight:600; }
+      section.card { background:var(--paper); border:1px solid #E8E0CF; border-radius:8px; padding:28px 26px; margin:24px 0; }
+      section.card > h2 { font-family:var(--serif); font-weight:500; font-size:28px; margin:0 0 6px; }
+      .sectnum { font-size:12px; letter-spacing:2px; text-transform:uppercase; color:var(--red); font-weight:700; display:block; margin-bottom:6px; }
+      .hint { color:var(--muted); font-size:14px; margin:0 0 18px; }
+      .legal { color:var(--ink); font-size:14px; line-height:1.7; background:var(--cream); border-left:3px solid var(--yellow); padding:14px 16px; border-radius:4px; margin:0 0 16px; }
+      .legal.warn { border-left-color:var(--red); }
+      .grid { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+      .grid-3 { display:grid; grid-template-columns:1fr 1fr 1fr; gap:16px; }
+      @media (max-width:680px){ .grid,.grid-3 { grid-template-columns:1fr; } }
+      .field { display:flex; flex-direction:column; gap:6px; margin-bottom:16px; }
+      .field.full { grid-column:1 / -1; }
+      label { font-size:13px; font-weight:600; letter-spacing:.3px; }
+      .req::after { content:" *"; color:var(--red); }
+      input[type=text], input[type=email], input[type=tel], input[type=date], select, textarea {
+        font-family:var(--sans); font-size:15px; color:var(--ink); background:#fff;
+        border:1px solid #CBD5DF; border-radius:6px; padding:11px 12px; width:100%;
+      }
+      textarea { min-height:90px; resize:vertical; }
+      input:focus, select:focus, textarea:focus { outline:none; border-color:var(--sky); box-shadow:0 0 0 3px var(--skySoft); }
+      .choices { display:flex; gap:20px; flex-wrap:wrap; padding-top:4px; }
+      .choices label { font-weight:400; display:inline-flex; align-items:center; gap:7px; cursor:pointer; }
+      .check { display:flex; gap:10px; align-items:flex-start; background:var(--cream); border:1px solid #E8E0CF; border-radius:6px; padding:14px 16px; margin:8px 0 0; }
+      .check input { margin-top:3px; }
+      .check label { font-weight:500; font-size:14px; }
+      .sig { display:grid; grid-template-columns:1.4fr 1.4fr 1fr; gap:16px; margin-top:8px; }
+      @media (max-width:680px){ .sig { grid-template-columns:1fr; } }
+      .sig .note { grid-column:1 / -1; font-size:12px; color:var(--muted); margin:-4px 0 0; }
+      ul.bullets { margin:0 0 4px; padding-left:20px; }
+      ul.bullets li { margin-bottom:10px; line-height:1.6; }
+      .mailblock { font-family:var(--serif); font-size:18px; letter-spacing:.5px; }
+      .submit { background:var(--red); color:#fff; border:none; border-radius:6px; font-size:17px; font-weight:600; padding:18px 36px; cursor:pointer; font-family:var(--sans); }
+      .submit:hover { background:var(--redDeep); }
+      .submitrow { margin-top:28px; }
+      .status { margin-top:14px; font-size:14px; font-weight:600; }
+      .req-note { font-size:13px; color:var(--muted); }
+    </style>
+  </head>
+  <body>
+    <div class="topbar">
+      <span class="badge">DRAFT PREVIEW</span>
+      <span>Application form — design draft; not the official application</span>
+    </div>
+
+    <div class="wrap">
+      <a class="back" href="./index.html">← Back to the main page</a>
+      <span class="eyebrow">09 — Apply</span>
+      <h1>Mission Trip Application</h1>
+      <p class="sub">Complete every section below. Fields marked <span style="color:var(--red)">*</span> are required. When you submit, all of your answers are compiled and emailed to the mission.</p>
+      <p class="req-note">Sabandía-Arequipa, Peru · Sembradores de Semillas Mission Trips</p>
+
+      <form id="application" novalidate>
+        <!-- ============ APPLICANT INFORMATION ============ -->
+        <section class="card">
+          <span class="sectnum">Section 1</span>
+          <h2>Applicant Information</h2>
+          <div class="grid">
+            <div class="field"><label class="req" for="firstName">First Name</label><input id="firstName" name="First Name" type="text" required></div>
+            <div class="field"><label class="req" for="lastName">Last Name</label><input id="lastName" name="Last Name" type="text" required></div>
+            <div class="field"><label for="gender">Gender</label><input id="gender" name="Gender" type="text"></div>
+            <div class="field"><label class="req" for="birthday">Birthday</label><input id="birthday" name="Birthday" type="date" required></div>
+            <div class="field"><label for="grade">Grade</label><input id="grade" name="Grade" type="text" placeholder="e.g. 11th, College, N/A"></div>
+            <div class="field"><label for="phone">Phone</label><input id="phone" name="Phone" type="tel"></div>
+            <div class="field full"><label for="address">Mailing Address</label><textarea id="address" name="Mailing Address"></textarea></div>
+            <div class="field"><label class="req" for="email">Email</label><input id="email" name="Email" type="email" required></div>
+            <div class="field"><label for="parentEmail">Email (Parent/Guardian)</label><input id="parentEmail" name="Email (Parent)" type="email"></div>
+            <div class="field full"><label for="passport">Passport Information</label><textarea id="passport" name="Passport Information" placeholder="Passport number, country of issue, expiration date (if you have one yet)"></textarea></div>
+          </div>
+        </section>
+
+        <!-- ============ YOUR ABILITIES ============ -->
+        <section class="card">
+          <span class="sectnum">Section 2</span>
+          <h2>Your Abilities</h2>
+          <div class="field">
+            <label class="req">Do you speak Spanish?</label>
+            <div class="choices">
+              <label><input type="radio" name="Speaks Spanish" value="Yes" required> Yes</label>
+              <label><input type="radio" name="Speaks Spanish" value="No"> No</label>
+            </div>
+          </div>
+          <div class="field">
+            <label>How fluently do you speak Spanish?</label>
+            <div class="choices">
+              <label><input type="radio" name="Spanish Fluency" value="Fluently"> Fluently</label>
+              <label><input type="radio" name="Spanish Fluency" value="Conversationally"> Conversationally</label>
+              <label><input type="radio" name="Spanish Fluency" value="Just a Little"> Just a Little</label>
+            </div>
+          </div>
+          <div class="field"><label class="req" for="skills">List your skills</label><textarea id="skills" name="Skills" required placeholder="e.g. music, teaching, construction, medical, photography, cooking…"></textarea></div>
+        </section>
+
+        <!-- ============ MINISTRY INFORMATION ============ -->
+        <section class="card">
+          <span class="sectnum">Section 3</span>
+          <h2>Ministry Information</h2>
+          <div class="field">
+            <label class="req">Church member?</label>
+            <div class="choices">
+              <label><input type="radio" name="Church Member" value="Yes" required> Yes</label>
+              <label><input type="radio" name="Church Member" value="No"> No</label>
+            </div>
+          </div>
+          <div class="field"><label for="churchName">If yes, name of church</label><input id="churchName" name="Church Name" type="text"></div>
+          <div class="field"><label for="leadership">List any leadership activities you have been involved in outside of church</label><textarea id="leadership" name="Leadership Activities"></textarea></div>
+          <div class="field"><label for="prevTrips">List any previous mission trips you have attended</label><textarea id="prevTrips" name="Previous Mission Trips"></textarea></div>
+          <div class="field"><label for="why">Please tell us why you desire to attend this mission trip</label><textarea id="why" name="Why Attend" placeholder="Include what you hope to accomplish for the population you will be serving, as well as for yourself spiritually." style="min-height:130px"></textarea></div>
+        </section>
+
+        <!-- ============ REFERENCES ============ -->
+        <section class="card">
+          <span class="sectnum">Section 4</span>
+          <h2>References</h2>
+          <p class="hint">Please list two references.</p>
+          <p style="font-weight:600;margin:0 0 6px">Reference 1</p>
+          <div class="grid-3">
+            <div class="field"><label for="ref1Name">Name</label><input id="ref1Name" name="Reference 1 Name" type="text"></div>
+            <div class="field"><label for="ref1Rel">Relationship</label><input id="ref1Rel" name="Reference 1 Relationship" type="text"></div>
+            <div class="field"><label for="ref1Phone">Phone</label><input id="ref1Phone" name="Reference 1 Phone" type="tel"></div>
+          </div>
+          <p style="font-weight:600;margin:10px 0 6px">Reference 2</p>
+          <div class="grid-3">
+            <div class="field"><label for="ref2Name">Name</label><input id="ref2Name" name="Reference 2 Name" type="text"></div>
+            <div class="field"><label for="ref2Rel">Relationship</label><input id="ref2Rel" name="Reference 2 Relationship" type="text"></div>
+            <div class="field"><label for="ref2Phone">Phone</label><input id="ref2Phone" name="Reference 2 Phone" type="tel"></div>
+          </div>
+        </section>
+
+        <!-- ============ COMMITMENT ============ -->
+        <section class="card">
+          <span class="sectnum">Section 5</span>
+          <h2>Meetings &amp; Fundraising Commitment</h2>
+          <p class="legal">The training meetings for this mission trip are critical as well as mandatory. The meetings, which may be virtual or in person, are designed to ensure success of the mission. The meetings will begin in September. In addition, each team member will be required to attend three (3) fundraisers during the season leading up to the trip. Funds raised will be used exclusively for food donations in Peru. Failure to attend scheduled events will disqualify the applicant from the trip. Please confirm your agreement to commit faithfully to meetings and fundraising events.</p>
+          <p class="legal warn">If you are selected, we will require a $150 non-refundable application fee to hold the date. The application fee will be deducted from your final balance.</p>
+          <div class="field"><label for="tripDate">Which trip date are you applying for?</label><input id="tripDate" name="Requested Trip Date" type="text" placeholder="Select one of the two trip dates offered"></div>
+          <div class="check"><input type="checkbox" id="commit" name="Commitment Agreement" value="I agree to commit faithfully to meetings and fundraising events" required><label for="commit">I agree to commit faithfully to the mandatory meetings and fundraising events.</label></div>
+        </section>
+
+        <!-- ============ MEDICAL & LIABILITY RELEASE ============ -->
+        <section class="card">
+          <span class="sectnum">Section 6</span>
+          <h2>Medical &amp; Liability Release</h2>
+          <div class="grid">
+            <div class="field full"><label for="medName">Name (exactly as it will appear on passport)</label><input id="medName" name="Medical: Name on Passport" type="text"></div>
+            <div class="field full"><label for="medAddr">Complete Address</label><textarea id="medAddr" name="Medical: Complete Address"></textarea></div>
+            <div class="field"><label for="phoneHome">Phone (Home)</label><input id="phoneHome" name="Phone (Home)" type="tel"></div>
+            <div class="field"><label for="phoneCell">Phone (Cell)</label><input id="phoneCell" name="Phone (Cell)" type="tel"></div>
+            <div class="field"><label for="cellParent">Cell (Parent/Guardian)</label><input id="cellParent" name="Cell (Parent/Guardian)" type="tel"></div>
+            <div class="field"><label for="emPhone">Emergency Contact Phone</label><input id="emPhone" name="Emergency Contact Phone" type="tel"></div>
+            <div class="field"><label for="emEmail">Emergency Contact Email</label><input id="emEmail" name="Emergency Contact Email" type="email"></div>
+            <div class="field"><label for="bloodType">Blood type</label><input id="bloodType" name="Blood Type" type="text"></div>
+            <div class="field full"><label for="illness">Major illnesses or surgeries in the last 12 months</label><textarea id="illness" name="Illnesses/Surgeries (12 mo)"></textarea></div>
+            <div class="field"><label for="diet">Diet concerns</label><textarea id="diet" name="Diet Concerns"></textarea></div>
+            <div class="field"><label for="allergies">List any allergies</label><textarea id="allergies" name="Allergies"></textarea></div>
+            <div class="field full"><label for="medIssues">State present medical issues, if any</label><textarea id="medIssues" name="Present Medical Issues"></textarea></div>
+            <div class="field full"><label for="meds">Current medications you are taking</label><textarea id="meds" name="Current Medications"></textarea></div>
+            <div class="field full"><label for="physician">Physician name and phone number</label><input id="physician" name="Physician Name & Phone" type="text"></div>
+          </div>
+          <p class="legal">• Please provide evidence of up-to-date vaccinations.<br>• Please be advised your medical history is for emergency use only. Sembradores de Semillas Mission Trips does observe HIPAA protocol.</p>
+        </section>
+
+        <!-- ============ PERMISSION & LIABILITY RELEASE ============ -->
+        <section class="card">
+          <span class="sectnum">Section 7</span>
+          <h2>Permission &amp; Liability Release</h2>
+          <p class="legal">I am aware that the mission trip to Sabandía, Arequipa, Peru poses risks included but not limited to: sickness, crime, political instability, personal injury, death, as well as similar or dissimilar risks. I am voluntarily participating in the mission trip with the knowledge of the risks involved. I hereby agree to accept any and all risks involved. I hereby agree to accept any and all risk of injury that may result from my participation in the mission trip. I also agree not to sue or attach any assets for and from all claims of any nature of Sembradores de Semillas Mission Trips officers, directors, or employees. I also understand that I am giving up liability as a result of known or unknown, including but not limited to all liability, on account of death, injury, or damage resulting from negligence or other acts, however caused, as a result of my participation in the mission trip.
+          <br><br>Further, authorization and permission is hereby given to Sembradores de Semillas to furnish necessary transportation, food, and lodging for this participant.
+          <br><br>The undersigned further agrees to hold harmless and indemnify Sembradores de Semillas for any liability sustained by said organization as the result of the negligent, willful, or intentional acts of said participant, including expenses incurred attendant thereto.
+          <br><br>If during the course of the mission trip the participant should become ill or sustain any injury requiring medical attention, I hereby authorize Thomas Blaszczyk, Maria del Carpio, or the listed chaperones (named below) to obtain emergency medical services on my behalf. I will assume financial responsibility for the bills incurred.
+          <br><br>I have carefully read this agreement and fully understand its content. I am aware that this is a release of liability and a contract between myself on the one hand, and Sembradores de Semillas Mission Trips or their affiliates on the other hand. No oral representations, statements, or inducements apart from the agreement have been made to me. I sign this agreement of my own free will.</p>
+          <div class="field"><label for="chaperones">Listed chaperones authorized to obtain emergency medical services</label><input id="chaperones" name="Authorized Chaperones" type="text"></div>
+          <div class="check"><input type="checkbox" id="permAgree" name="Permission/Liability Agreement" value="I have read and agree to the Permission & Liability Release" required><label for="permAgree">I have carefully read and agree to this Permission &amp; Liability Release.</label></div>
+          <p style="font-weight:600;margin:18px 0 6px">Participant</p>
+          <div class="sig">
+            <div class="field"><label for="permPName">Printed Name of Participant</label><input id="permPName" name="Permission: Participant Printed Name" type="text"></div>
+            <div class="field"><label for="permPSig">Signature (type full legal name)</label><input id="permPSig" name="Permission: Participant Signature" type="text"></div>
+            <div class="field"><label for="permPDate">Date</label><input id="permPDate" name="Permission: Participant Date" type="date"></div>
+          </div>
+          <p style="font-weight:600;margin:14px 0 6px">Parent / Legal Guardian (if applicant is under 18)</p>
+          <div class="sig">
+            <div class="field"><label for="permGName">Printed Name of Parent/Legal Guardian</label><input id="permGName" name="Permission: Guardian Printed Name" type="text"></div>
+            <div class="field"><label for="permGSig">Signature (type full legal name)</label><input id="permGSig" name="Permission: Guardian Signature" type="text"></div>
+            <div class="field"><label for="permGDate">Date</label><input id="permGDate" name="Permission: Guardian Date" type="date"></div>
+          </div>
+        </section>
+
+        <!-- ============ PHOTO / VIDEO RELEASE ============ -->
+        <section class="card">
+          <span class="sectnum">Section 8</span>
+          <h2>Photo / Video Release</h2>
+          <p class="legal">By signing this application form, I hereby grant permission to Sembradores de Semillas Mission Trips to the rights, without payment or any other consideration, of my image, likeness, and the sound of my voice as recorded on audio or video tape. Photographic, audio, or video recordings may be used by Sembradores de Semillas Mission Trips for the following purposes: informational presentations, promotional materials, newsletters, website, and social media venues.</p>
+          <div class="check"><input type="checkbox" id="photoAgree" name="Photo/Video Release" value="I grant the Photo/Video Release"><label for="photoAgree">I grant the Photo/Video Release described above.</label></div>
+        </section>
+
+        <!-- ============ NOTICE OF UNDERSTANDING ============ -->
+        <section class="card">
+          <span class="sectnum">Section 9</span>
+          <h2>Notice of Understanding</h2>
+          <ul class="bullets">
+            <li>Completion of application does not guarantee a place on the mission trip.</li>
+            <li>Each application will be reviewed by staff.</li>
+            <li>In-person interviews will be part of the application process.</li>
+          </ul>
+          <div class="check"><input type="checkbox" id="noticeAgree" name="Notice of Understanding" value="I understand the Notice of Understanding" required><label for="noticeAgree">I understand the Notice of Understanding.</label></div>
+        </section>
+
+        <!-- ============ FINANCIAL NOTICE OF UNDERSTANDING ============ -->
+        <section class="card">
+          <span class="sectnum">Section 10</span>
+          <h2>Financial Notice of Understanding</h2>
+          <ul class="bullets">
+            <li>It is my responsibility to secure necessary finances for the mission trip.</li>
+            <li>Trip balance must be paid 60 days before the scheduled trip.</li>
+            <li>Cancellation policy: Application fee of $150 is non-refundable. Application fee is due once the applicant has been accepted.</li>
+            <li>If cancelled 30 days or more before the trip — 50% refund.</li>
+            <li>If cancelled 21–29 days before the trip — 40% refund.</li>
+            <li>If cancelled 14–20 days before the trip — 30% refund.</li>
+            <li>If cancelled 0–13 days before the trip — 0% refund.</li>
+            <li>Any funds that have been raised by the attendee through fundraising or mission events will not be returned in cash. They may be used for another trip or designated for mission use. The funds will have one year to be used; if not, they are forfeited to the mission.</li>
+            <li>Extenuating circumstances (illness or the death of a family member) for trip cancellation will be reviewed on a case-by-case basis.</li>
+            <li>Refunds for airfare are determined by LATAM Airlines — please refer to your ticket.</li>
+            <li>I understand that the team leader reserves the right to ask me to return home if my behavior is destructive to the team, the ministry, or the host community. The following warrant an immediate return home: alcohol use, drug use, or violation of Peruvian laws. Any additional cost incurred as a result of this action will be my responsibility. Sembradores de Semillas Mission Trips is not responsible to reimburse my trip expenses.</li>
+          </ul>
+          <div class="check"><input type="checkbox" id="finAgree" name="Financial Notice of Understanding" value="I understand and agree to the Financial Notice of Understanding" required><label for="finAgree">I understand and agree to the Financial Notice of Understanding.</label></div>
+        </section>
+
+        <!-- ============ AUTHORIZATION ============ -->
+        <section class="card">
+          <span class="sectnum">Section 11</span>
+          <h2>Authorization</h2>
+          <p class="legal">The information on this application form and additional forms is correct to the best of my knowledge. Additionally, I have read and agree to abide by the policies set forth on all forms, and I support the mission of faith as supported in the supporting statements of Sembradores de Semillas Mission Trips.</p>
+          <div class="check"><input type="checkbox" id="authAgree" name="Authorization Agreement" value="I authorize and agree" required><label for="authAgree">I confirm the above Authorization.</label></div>
+          <p style="font-weight:600;margin:18px 0 6px">Participant</p>
+          <div class="sig">
+            <div class="field"><label for="authPName">Printed Name of Participant</label><input id="authPName" name="Authorization: Participant Printed Name" type="text"></div>
+            <div class="field"><label for="authPSig">Signature (type full legal name)</label><input id="authPSig" name="Authorization: Participant Signature" type="text"></div>
+            <div class="field"><label for="authPDate">Date</label><input id="authPDate" name="Authorization: Participant Date" type="date"></div>
+          </div>
+          <p style="font-weight:600;margin:14px 0 6px">Parent / Legal Guardian (if applicant is under 18)</p>
+          <div class="sig">
+            <div class="field"><label for="authGName">Printed Name of Parent/Legal Guardian</label><input id="authGName" name="Authorization: Guardian Printed Name" type="text"></div>
+            <div class="field"><label for="authGSig">Signature (type full legal name)</label><input id="authGSig" name="Authorization: Guardian Signature" type="text"></div>
+            <div class="field"><label for="authGDate">Date</label><input id="authGDate" name="Authorization: Guardian Date" type="date"></div>
+          </div>
+        </section>
+
+        <!-- ============ SUBMIT ============ -->
+        <section class="card">
+          <p class="legal" style="border-left-color:var(--ink)"><strong>PLEASE SUBMIT THIS FORM ONLINE AND BY US MAIL.</strong><br>
+          <span class="mailblock">MAIL TO: Sembradores de Semillas Mission Trips · P.O. Box 8283 · Lancaster, PA 17604</span></p>
+          <div class="submitrow">
+            <button type="submit" class="submit">Submit Application</button>
+            <p id="status" class="status" role="status" aria-live="polite"></p>
+          </div>
+        </section>
+      </form>
+    </div>
+
+    <script>
+      // ====== EMAIL CONFIG ======================================================
+      // To have submissions emailed DIRECTLY (recommended), create a free endpoint
+      // at https://formspree.io (or getform.io) and paste the URL below.
+      // Leave it blank to use the mailto: fallback (opens the applicant's email app).
+      var FORMSPREE_ENDPOINT = ""; // e.g. "https://formspree.io/f/abcdwxyz"
+      var FALLBACK_EMAIL = "applications@sembradoressemillas.org"; // <-- set the real recipient
+      // =========================================================================
+
+      var form = document.getElementById("application");
+      var status = document.getElementById("status");
+
+      if (FORMSPREE_ENDPOINT) {
+        // Real email delivery via form service: native POST.
+        form.setAttribute("action", FORMSPREE_ENDPOINT);
+        form.setAttribute("method", "POST");
+        var subj = document.createElement("input");
+        subj.type = "hidden"; subj.name = "_subject";
+        subj.value = "New Mission Trip Application";
+        form.appendChild(subj);
+      } else {
+        // mailto fallback: assemble all answers into an email body.
+        form.addEventListener("submit", function (e) {
+          e.preventDefault();
+          if (!form.reportValidity()) return;
+          var lines = [];
+          var seenRadioGroups = {};
+          var els = form.querySelectorAll("input, textarea, select");
+          els.forEach(function (el) {
+            if (!el.name) return;
+            if ((el.type === "radio" || el.type === "checkbox")) {
+              if (!el.checked) return;
+            }
+            var val = el.value && el.value.trim();
+            if (!val) return;
+            lines.push(el.name + ": " + val);
+          });
+          var body =
+            "MISSION TRIP APPLICATION\nSembradores de Semillas Mission Trips\n" +
+            "Sabandia-Arequipa, Peru\n\n" + lines.join("\n");
+          var href =
+            "mailto:" + encodeURIComponent(FALLBACK_EMAIL) +
+            "?subject=" + encodeURIComponent("New Mission Trip Application") +
+            "&body=" + encodeURIComponent(body);
+          window.location.href = href;
+          status.textContent =
+            "Your email app should open with your application pre-filled. Please press Send, and also mail a printed copy as noted above.";
+          status.style.color = "#A8362B";
+        });
+      }
+    </script>
+  </body>
+</html>
